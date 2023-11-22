@@ -8,8 +8,11 @@ import {
   ShoppingCartOutlined
 } from '@mui/icons-material'
 import { Link } from 'react-router-dom'
+import { useState } from 'react'
+import Cart from '../Cart'
 
 function Navbar() {
+  const [open, setOpen] = useState(false)
   return (
     <div className={styles.navbar}>
       <div className={styles.wrapper}>
@@ -70,13 +73,14 @@ function Navbar() {
             <Search />
             <PersonOutlineOutlined />
             <FavoriteBorderOutlined />
-            <div className={styles.cartIcon}>
+            <div className={styles.cartIcon} onClick={() => setOpen(!open)}>
               <ShoppingCartOutlined />
               <span>0</span>
             </div>
           </div>
         </div>
       </div>
+      {open && <Cart />}
     </div>
   )
 }
