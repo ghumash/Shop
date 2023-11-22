@@ -12,21 +12,23 @@ function Slider() {
     setCurrentSlide(currentSlide === 2 ? 0 : (prev) => prev + 1)
   }
   return (
-    <div className={styles.slider}>
-      <div
-        className={styles.container}
-        style={{ transform: `translateX(-${currentSlide * 100}vw` }}
-      >
-        {sliderData.map((i) => (
-          <img key={i} src={i} alt="" />
-        ))}
-      </div>
-      <div className={styles.icons}>
-        <div className={styles.icon} onClick={prevSlide}>
-          <WestOutlined />
+    <div className={styles.wrapper}>
+      <div className={styles.slider}>
+        <div
+          className={styles.container}
+          style={{ transform: `translateX(-${currentSlide * 100}vw` }}
+        >
+          {sliderData.map((i) => (
+            <img key={i} src={i} alt="" />
+          ))}
         </div>
-        <div className={styles.icon} onClick={nextSlide}>
-          <EastOutlined />
+        <div className={styles.icons}>
+          <div className={styles.icon} onClick={prevSlide}>
+            <WestOutlined />
+          </div>
+          <div className={styles.icon} onClick={nextSlide}>
+            <EastOutlined />
+          </div>
         </div>
       </div>
     </div>
