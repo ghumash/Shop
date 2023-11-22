@@ -18,7 +18,7 @@ function Slider() {
         style={{ transform: `translateX(-${currentSlide * 100}vw` }}
       >
         {sliderData.map((i) => (
-          <img src={i} alt="" />
+          <img key={i} src={i} alt="" />
         ))}
       </div>
       <div className={styles.icons}>
