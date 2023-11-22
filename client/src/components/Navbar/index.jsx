@@ -15,7 +15,7 @@ function Navbar() {
       <div className={styles.wrapper}>
         <div className={styles.left}>
           <div className={styles.item}>
-            <img src={enFlag} alt="EN" width={25} height={25} />
+            <img src={enFlag} alt="" width={25} height={25} />
             <KeyboardArrowDown />
           </div>
           <div className={styles.item}>
