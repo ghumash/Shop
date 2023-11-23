@@ -2,28 +2,41 @@ import styles from './Products.module.scss'
 import List from '../../components/List'
 import { useParams } from 'react-router-dom'
 import { useState } from 'react'
+import useFetch from '../../hooks/useFetch'
 
 function Products() {
   const catId = parseInt(useParams().id)
   const [maxPrice, setMaxPrice] = useState(1000)
-  const [sort, setSort] = useState(null)
+  const [sort, setSort] = useState('ask')
+  const [selectedSubCats, setSelectedSubCats] = useState([])
+  const { data, loading, error } = useFetch(
+    `/sub-categories?[filters][categories][id][$eq]=${catId}`
+  )
+  const handleChange = (e) => {
+    const value = e.target.value
+    const isChecked = e.target.checked
+    setSelectedSubCats(
+      isChecked
+        ? [...selectedSubCats, value]
+        : selectedSubCats.filter((i) => i !== value)
+    )
+  }
   return (
     <div className={styles.products}>
       <div className={styles.left}>
         <div className={styles.filterItem}>
           <h2>Product Categories</h2>
-          <div className={styles.inputItem}>
-            <input type="checkbox" id={'1'} value={1} />
-            <label htmlFor="1">Shoes</label>
-          </div>
-          <div className={styles.inputItem}>
-            <input type="checkbox" id={'2'} value={2} />
-            <label htmlFor="2">Skirts</label>
-          </div>
-          <div className={styles.inputItem}>
-            <input type="checkbox" id={'3'} value={3} />
-            <label htmlFor="3">Coats</label>
-          </div>
+          {data.map((i) => (
+            <div className={styles.inputItem} key={i.id}>
+              <input
+                type="checkbox"
+                id={i.id}
+                value={i.id}
+                onChange={handleChange}
+              />
+              <label htmlFor={i.id}>{i?.attributes?.title}</label>
+            </div>
+          ))}
         </div>
         <div className={styles.filterItem}>
           <h2>Filter by price</h2>
@@ -69,7 +82,12 @@ function Products() {
           src="https://images.pexels.com/photos/1163194/pexels-photo-1163194.jpeg?auto=compress&cs=tinysrgb&w=1600"
           alt=""
         />
-        <List catId={catId} maxPrice={maxPrice} sort={sort} />
+        <List
+          catId={catId}
+          maxPrice={maxPrice}
+          sort={sort}
+          subCats={selectedSubCats}
+        />
       </div>
     </div>
   )
