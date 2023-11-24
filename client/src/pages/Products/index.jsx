@@ -75,6 +75,10 @@ function Products() {
             <label htmlFor="desc">Price (Highest first)</label>
           </div>
         </div>
+        <div className={styles.filterItem}>
+          {/* TODO: create functional for button*/}
+          <button>Search</button>
+        </div>
       </div>
       <div className={styles.right}>
         <img

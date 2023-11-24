@@ -8,13 +8,25 @@ function List({ subCats, maxPrice, sort, catId }) {
     (i) => `&[filters][sub_categories][id][$eq]=${i}`
   )}`
   const byPrice = `&[filters][price][$lte]=${maxPrice}`
-  const byLowestOrHighest = `&:pluralApiId?sort=${sort}`
+  // TODO: byLowestOrHighest not working
+  const byLowestOrHighest = `&sort=price:${sort}`
   const { data, loading, error } = useFetch(
-    `${endpoint}${bySubCategories}${byPrice}${byLowestOrHighest}`
+    `${endpoint}${bySubCategories}${byPrice}`
   )
+  if (loading) {
+    return '...loading'
+  }
+  if (error) {
+    return 'Something went wrong!'
+  }
+  if (!data) {
+    return 'No data'
+  }
   return (
     <div className={styles.list}>
-      {loading ? '...loading' : data.map((i) => <Card key={i.id} item={i} />)}
+      {data.map((i) => (
+        <Card key={i.id} item={i} />
+      ))}
     </div>
   )
 }
