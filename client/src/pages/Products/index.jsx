@@ -21,6 +21,15 @@ function Products() {
         : selectedSubCats.filter((i) => i !== value)
     )
   }
+  if (loading) {
+    return '...loading'
+  }
+  if (error) {
+    return 'Something went wrong!'
+  }
+  if (!data) {
+    return 'No data'
+  }
   return (
     <div className={styles.products}>
       <div className={styles.left}>

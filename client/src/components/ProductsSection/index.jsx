@@ -6,6 +6,15 @@ function ProductsSection({ type }) {
   const { data, loading, error } = useFetch(
     `/products?populate=*&[filters][type][$eq]=${type}`
   )
+  if (loading) {
+    return '...loading'
+  }
+  if (error) {
+    return 'Something went wrong!'
+  }
+  if (!data) {
+    return 'No data'
+  }
   return (
     <div className={styles.root}>
       <div className={styles.top}>
@@ -18,11 +27,9 @@ function ProductsSection({ type }) {
         </p>
       </div>
       <div className={styles.bottom}>
-        {error
-          ? 'Something went wrong!'
-          : loading
-            ? '...loading'
-            : data.map((i) => <Card key={i.id} item={i} />)}
+        {data.map((i) => (
+          <Card key={i.id} item={i} />
+        ))}
       </div>
     </div>
   )

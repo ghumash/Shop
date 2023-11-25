@@ -10,8 +10,10 @@ import {
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import Cart from '../Cart'
+import { useSelector } from 'react-redux'
 
 function Navbar() {
+  const products = useSelector((state) => state.cart.products)
   const [open, setOpen] = useState(false)
   return (
     <div className={styles.navbar}>
@@ -75,7 +77,7 @@ function Navbar() {
             <FavoriteBorderOutlined />
             <div className={styles.cartIcon} onClick={() => setOpen(!open)}>
               <ShoppingCartOutlined />
-              <span>0</span>
+              <span>{products.length}</span>
             </div>
           </div>
         </div>
